@@ -14,7 +14,7 @@ import sort from "../../assets/icons/sort.svg";
 import { capitalizeWords, ensureProtocol, handleBrandClick, renderStars } from "../../utils/helper";
 import filter from "../../assets/icons/filter.svg";
 import cross from "../../assets/icons/cross.svg";
-import NoData from "../../components/NoData/noData";
+// import NoData from "../../components/NoData/noData";
 import { ListLoader } from "../../components/Loaders/loader";
 
 const BusinessList = () => {
