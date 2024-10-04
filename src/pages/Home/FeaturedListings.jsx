@@ -183,8 +183,6 @@ export default function FeaturedListings() {
       </div>
       {loading ? (
         <CardLoader />
-      ) : profiles.length === 0 ? (
-        <NoData />
       ) : (
         <div className="mx-8 sm:mx-0 gap-x-8 gap-y-6 xl:gap-x-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {profiles.slice(0, visibleProfiles).map((profile) => (

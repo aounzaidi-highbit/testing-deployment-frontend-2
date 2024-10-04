@@ -217,9 +217,7 @@ const BusinessList = () => {
           <div className="min-h-[90vh] w-5/6">
             {loading ? (
               <ListLoader />
-            ) : profile.length === 0 ? (
-              <NoData />
-            ) : (
+            )  : (
               profile.map((item) => {
                 const websiteURL = ensureProtocol(item.website);
                 return (
