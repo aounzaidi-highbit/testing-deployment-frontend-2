@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import Vector from "../../assets/images/Vector.png";
-import search from "../../assets/icons/search-list.svg";
+import search from "../../assets/icons/search.svg";
 import OurListed from "../Home/OurListed";
 import { getAllProfiles, getRatingDetails, getSearchProfile } from "../../services/business";
 import { setupAxios } from "../../utils/axiosClient";
@@ -217,7 +217,7 @@ const BusinessList = () => {
           <div className="min-h-[90vh] w-5/6">
             {loading ? (
               <ListLoader />
-            )  : (
+            ) : (
               profile.map((item) => {
                 const websiteURL = ensureProtocol(item.website);
                 return (

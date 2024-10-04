@@ -52,7 +52,7 @@ const ProfileCard = React.memo(({ profile, handleBrandClick, renderStars, ensure
                 </div>
               </div>
               <a target="_blank" href={websiteURL} onClick={(e) => e.stopPropagation()} rel="noopener noreferrer">
-                <img src={world} alt="website" className="w-8 rounded-lg  ml-[9px]" />
+                <img src={world} alt="website" className="w-8 rounded-lg  ml-[9px] filter-Primary" />
               </a>
             </div>
           </div>

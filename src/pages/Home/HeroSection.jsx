@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import brandsIcon from "../../assets/images/brands-icon.png";
-import search from "../../assets/icons/search-list.svg";
+import search from "../../assets/icons/search.svg";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
@@ -45,11 +45,11 @@ export default function HeroSection() {
               className="absolute right-0"
               to={`/business-list?name=${name}`}
             >
-              <button className="bg-Primary hover:bg-Primary text-2xl font-bold px-6 py-3 xsm:w-16 text-white rounded-r-lg flex gap-2 items-center">
+              <button className="bg-Primary hover:bg-Primary text-2xl  px-6 py-3 xsm:w-16 text-white rounded-r-lg flex gap-2 items-center">
                 <img
                   src={search}
-                  className="h-[24px] w-[24px] xsm:w-[30px] xsm:h-[30px]"
-                  alt="search icon"
+                  className="h-[24px] w-[24px] xsm:w-[30px] xsm:h-[30px] filter invert"
+                  alt="search-icon"
                 />
                 <span className="xsm:hidden">Search</span>
               </button>
