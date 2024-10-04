@@ -6,7 +6,7 @@ import defaultImg from "../../assets/icons/default-brand.svg";
 import { HTTP_CLIENT } from "../../utils/axiosClient";
 import { getRatingDetails, reviewGet } from "../../services/business";
 import { CardLoader } from "../../components/Loaders/loader";
-import NoData from "../../components/NoData/noData";
+// import NoData from "../../components/NoData/NoData";
 // import AOS from "aos";
 import { useNavigate } from "react-router-dom";
 import { capitalizeWords, ensureProtocol, renderStars, slugify } from "../../utils/helper";
