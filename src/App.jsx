@@ -3,24 +3,13 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Routes, Route, Navigate } from "react-router-dom";
-// import "react-toastify/dist/ReactToastify.css";
 import MainComponent from "./pages/MainComponent";
-// import { useEffect } from "react";
-// import Aos from "aos";
-// import "aos/dist/aos.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import useAuth from "./middlewares/useAuth";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 
 const App = () => {
-
-  // useEffect(() => {
-  //   Aos.init({
-  //     duration: 1000,
-  //     once: true,
-  //   });
-  // }, []);
 
   const isAuthenticated = useAuth();
 

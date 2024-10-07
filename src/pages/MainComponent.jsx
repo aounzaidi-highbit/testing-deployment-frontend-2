@@ -20,9 +20,8 @@ import useAuth from "../middlewares/useAuth";
 import UpdatePassword from "./UpdatePassword/UpdatePassword";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
 import UserReviews from "./UserReviews/UserReviews";
-// import UserVerification from "../components/UserVerification/UserVerification";
 
-export default function MainComponent() {
+const MainComponent =()=> {
   const isAuthenticated = useAuth();
 
   return (
@@ -50,7 +49,6 @@ export default function MainComponent() {
         <Route path="signin" element={<SignIn />} />
         <Route path="forgot-password" element={isAuthenticated ? <Navigate to="/" /> : <ForgotPassword />} />
         <Route path="update-password/:u_id/:token" element={isAuthenticated ? <Navigate to="/" /> : <UpdatePassword />} />
-        {/* <Route path="user-verify" element={isAuthenticated ? <Navigate to="/" /> : <UserVerification />} /> */}
         <Route path="user-reviews" element={<UserReviews />} />
         <Route path="review/:name" element={<BusinessDetails />} />
         <Route path="business-list" element={<BusinessList />} />
@@ -59,3 +57,4 @@ export default function MainComponent() {
     </>
   );
 }
+export default MainComponent

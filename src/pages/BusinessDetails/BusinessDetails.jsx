@@ -1,42 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
-import world from "../../assets/icons/world.svg";
-import reviewIcon from "../../assets/icons/review-icon.svg";
-import linkIcon from "../../assets/icons/link-icon.svg";
-import fullStar from "../../assets/icons/full-star.svg";
-import blankStar from "../../assets/icons/blank-star.svg";
-// import facebook from "../../assets/images/facebook.png";
-// import instagram from "../../assets/images/instagram.png";
 import OurListed from "../Home/OurListed";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { getSingleProfiles, getRatingDetails } from "../../services/business";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import defaultImg from "../../assets/icons/default-brand.svg";
 import { Navigation } from 'swiper/modules';
-// import locationIcon from "../../assets/images/location.png";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import AddReview from "./AddReview";
 import SignIn from "../SignIn/SignIn";
-import copyIcon from '../../assets/icons/edit.svg';
-import tickIcon from "../../assets/icons/tick.svg";
 import { capitalizeWords, formatDate, getInitials, renderStars } from "../../utils/helper";
+import { DetailsLoader } from "../../components/Loaders/loader";
+import { blankStar, copyIcon, defaultImg, fullStar, linkIcon, reviewIcon, world } from "../../services/images";
 
-export default function BusinessDetails() {
+const BusinessDetails = () => {
   const { name } = useParams();
   const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [allReview, setAllReview] = useState([]);
   const [profile, setProfile] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [ratings, setRatings] = useState({});
   const reviewsPerPage = 10;
-  // const [reviews, setReviews] = useState([]);
   const [icon, setIcon] = useState(copyIcon);
   const [buttonText, setButtonText] = useState("Share");
   const [averageRating, setAverageRating] = useState(0);
-  const [showContent, setShowContent] = useState(false);
   const { id } = location.state;
   const currentUserId = Number(localStorage.getItem("user_id"))
 
@@ -55,7 +43,7 @@ export default function BusinessDetails() {
       return;
     }
     const fetchProfile = async () => {
-      // setLoading(true);
+      setLoading(true);
       try {
         const profileResponse = await getSingleProfiles(id);
         setProfile(profileResponse.data);
@@ -81,8 +69,7 @@ export default function BusinessDetails() {
         console.error('Failed to fetch profile:', error);
       } finally {
         setTimeout(() => {
-          setShowContent(true);
-          // setLoading(false)
+          setLoading(false)
         }, 10);
       }
     };
@@ -97,12 +84,10 @@ export default function BusinessDetails() {
           const response = await getSingleProfiles(name);
           const brandProfile = response.data;
           setProfile(brandProfile);
-          // setReviews(brandProfile.id);
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error);
       } finally {
-        // setLoading(false);
       }
     };
 
@@ -234,107 +219,109 @@ export default function BusinessDetails() {
     }));
   };
 
-  if (!showContent) {
-    return (
-      <div className='min-h-screen flex justify-center items-center bg-white'></div>
-    );
-  }
+  // if (!showContent) {
+  //   return (
+  //     <div className='min-h-screen flex justify-center items-center bg-white'></div>
+  //   );
+  // }
   return (
     <>
       <div className="mt-28 bg-white">
-        < div className="lg:px-32 flex flex-col justify-between items-center gap-4 p-4 bg-[#e7f1f7]" >
-          <div className="-mt-28">
-            <img src={profile.logo || defaultImg} onError={(e) => { e.target.src = defaultImg }} alt="image" className="bg-white w-[120px] md:w-[150px] h-[120px] rounded-full md:h-[150px] border-4 border-Primary" />
-          </div>
-          <h2 className="text-[25px] md:text-[28px]">
-            <span className="font-bold text-Primary"> {profile?.name}</span>
-          </h2>
-          <p className="lg:w-[70%] md:w-[65%] w-[90%] text-center">{profile?.description}</p>
-          <h6 className="text-[18px] font-bold text-Primary flex items-center">
-            {/* <img src={locationIcon} alt="location-icon" /> */}
-            <span> Pakistan {profile.country} </span>
-          </h6>
-          <div className="flex items-center my-5 flex-row justify-center xsm:gap-5 gap-12 md:gap-20 lg:justify-center lg:gap-48 w-full">
-            <div className="items-center xsm:text-center">
-              <div className="items-center">
-                <div className="flex">
-                  <span className="bg-Primary font-bold text-white rounded-lg flex items-center text-xl px-2 mr-1">{averageRating.toFixed(1) || "0"}</span>
-                  <div>
-                    <div className="flex justify-center mb-1">{renderStars(averageRating)}</div>
-                    <h6 className="font-normal text-[#8D8D8D] text-sm">
-                      <div> ({`${totalReviews} Reviews` || "0 Reviews"})</div>
-                    </h6>
+        {loading ? (
+          <DetailsLoader />
+        ) : (
+          < div className="lg:px-32 flex flex-col justify-between items-center gap-4 p-4 bg-Secondary" >
+            <div className="-mt-28">
+              <img src={profile.logo || defaultImg} onError={(e) => { e.target.src = defaultImg }} alt="image" className="bg-white w-[120px] md:h-[150px] md:w-[150px] h-[120px] rounded-full  border-4 border-Primary" />
+            </div>
+            <h2 className="text-[25px] md:text-[28px]">
+              <span className="font-bold text-Primary"> {profile?.name}</span>
+            </h2>
+            <p className="lg:w-[70%] md:w-[65%] w-[90%] text-center">{profile?.description}</p>
+            <h6 className="text-[18px] font-bold text-Primary flex items-center">
+              {/* <img src={locationIcon} alt="location-icon" /> */}
+              <span> Pakistan {profile.country} </span>
+            </h6>
+            <div className="flex items-center my-5 flex-row justify-center xsm:gap-5 gap-12 md:gap-20 lg:justify-center lg:gap-48 w-full">
+              <div className="items-center xsm:text-center">
+                <div className="items-center">
+                  <div className="flex">
+                    <span className="bg-Primary font-bold text-white rounded-lg flex items-center text-xl px-2 mr-1">{averageRating.toFixed(1) || "0"}</span>
+                    <div>
+                      <div className="flex justify-center mb-1">{renderStars(averageRating)}</div>
+                      <h6 className="font-normal text-[#8D8D8D] text-sm">
+                        <div> ({`${totalReviews} Reviews` || "0 Reviews"})</div>
+                      </h6>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <a target={profile.website} href={modifyWebsiteUrl(profile.website)}>
-              <div className="flex gap-2 items-center">
-                <div className="flex justify-center items-center">
-                  <img src={world} alt="world" className="w-8 lg:w-10 ml-1 primary-filter" />
+              <a target={profile.website} href={modifyWebsiteUrl(profile.website)}>
+                <div className="flex gap-2 items-center">
+                  <div className="flex justify-center items-center">
+                    <img src={world} alt="world" className="w-8 lg:w-10 ml-1 primary-filter" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <h2 className="text-[15px] font-light leading-5">
+                      Live <span className="font-bold text-Primary"> Site </span>
+                    </h2>
+                    <p className="text-[#666666] xsm:text-sm">{profile.website}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center">
-                  <h2 className="text-[15px] font-light leading-5">
-                    Live <span className="font-bold text-Primary"> Site </span>
+              </a>
+            </div>
+            <div className="flex gap-5 md:gap-8 lg:gap-36">
+              <div>
+                <span className="flex flex-col sm:text-lg md:text-lg lg:text-xl font-light relative items-center">
+                  <span><span className="text-Primary font-black">Facebook </span>Followers</span>
+                  <Link to={profile.facebook} className="flex items-center" target="_blank">
+                    <img src={linkIcon} alt="link-icon" className="w-[16px] h-[16px]" />
+                    <span className="xsm:text-center text-[12px] sm:text-center mx-1 md:mx-0 text text-Primary hover:text-Hover font-bold pl-1">Visit <span className="xsm:hidden">Brand's</span> Facebook Page</span>
+                  </Link>
+                </span>
+                <div className="flex justify-center items-center flex-col py-2 md:py-4">
+                  <h2 className="text-Primary font-black text-xl  lg:text-4xl">
+                    {profile?.facebook_followers}+
                   </h2>
-                  <p className="text-[#666666] xsm:text-sm">{profile.website}</p>
                 </div>
               </div>
-            </a>
-          </div>
-          <div className="flex gap-5 md:gap-8 lg:gap-36">
-            <div>
-              <span className="flex flex-col sm:text-lg md:text-lg lg:text-xl font-light relative items-center">
-                {/* <img src={facebook} alt="brand-icon" className="mb-4 w-[50px] rounded-full h-[50px]" /> */}
-                <span><span className="text-Primary font-black">Facebook </span>Followers</span>
-                <Link to={profile.facebook} className="flex items-center" target="_blank">
-                  <img src={linkIcon} alt="link-icon" className="w-[16px] h-[16px]" />
-                  <span className="xsm:text-center text-[12px] sm:text-center mx-1 md:mx-0 text text-Primary hover:text-[#4ea0db] font-bold pl-1">Visit <span className="xsm:hidden">Brand's</span> Facebook Page</span>
-                </Link>
-              </span>
-              <div className="flex justify-center items-center flex-col py-2 md:py-4">
-                <h2 className="text-Primary font-black text-xl  lg:text-4xl">
-                  {profile?.facebook_followers}+
-                </h2>
+              <div>
+                <span className="flex flex-col sm:text-lg md:text-lg lg:text-xl font-light relative items-center">
+                  <span><span className="text-Primary font-black">Instagram </span>Followers</span>
+                  <Link to={profile.insta} className="flex items-center" target="_blank">
+                    <img src={linkIcon} alt="link-icon" className="w-[16px] h-[16px]" />
+                    <span className="xsm:text-center text-[12px] sm:text-center mx-1 md:mx-0 text text-Primary hover:text-Hover font-bold pl-1">Visit <span className="xsm:hidden">Brand's</span> Instagram Account</span>
+                  </Link>
+                </span>
+                <div className="flex justify-center items-center flex-col py-2 md:py-4">
+                  <h2 className="text-Primary font-black text-xl  lg:text-4xl">
+                    {profile?.insta_followers}+
+                  </h2>
+                </div>
               </div>
             </div>
-            <div>
-              <span className="flex flex-col sm:text-lg md:text-lg lg:text-xl font-light relative items-center">
-                {/* <img src={instagram} alt="brand-icon" className="mb-4 w-[50px] rounded-full h-[50px]" /> */}
-                <span><span className="text-Primary font-black">Instagram </span>Followers</span>
-                <Link to={profile.insta} className="flex items-center" target="_blank">
-                  <img src={linkIcon} alt="link-icon" className="w-[16px] h-[16px]" />
-                  <span className="xsm:text-center text-[12px] sm:text-center mx-1 md:mx-0 text text-Primary hover:text-[#4ea0db] font-bold pl-1">Visit <span className="xsm:hidden">Brand's</span> Instagram Account</span>
-                </Link>
-              </span>
-              <div className="flex justify-center items-center flex-col py-2 md:py-4">
-                <h2 className="text-Primary font-black text-xl  lg:text-4xl">
-                  {profile?.insta_followers}+
-                </h2>
-              </div>
+            <div className="flex justify-center gap-4 w-full">
+              <button className=" flex items-center justify-center border bg-Primary w-[40%] md:w-[30%] 2xl:w-[20%] h-16 p-6 rounded-[10px] hover:bg-Hover"
+                onClick={() => document.getElementById('dropReview').scrollIntoView({ behavior: 'smooth' })}>
+                <span className="flex gap-1 md:gap-4 items-center">
+                  <img src={reviewIcon} alt="review-icon" className="w-12 filter invert" />
+                  <span className="text-white lg:font-bold text-sm lg:text-lg">
+                    Write Review
+                  </span>
+                </span>
+              </button>
+              <button className=" flex items-center justify-center border border-Primary w-[40%] md:w-[30%] 2xl:w-[20%] h-16 p-6 rounded-[10px] bg-white"
+                onClick={handleShareClick}>
+                <span className="flex items-center gap-1 md:gap-4 ">
+                  <img src={icon} alt="save" className="w-7 lg:w-8 filter-Primary" />
+                  <span className="text-Primary font-bold lg:text-lg">
+                    {buttonText}
+                  </span>
+                </span>
+              </button>
             </div>
-          </div>
-          <div className="flex justify-center gap-4 w-full">
-            <button className=" flex items-center justify-center border bg-Primary w-[40%] md:w-[30%] 2xl:w-[20%] h-16 p-6 rounded-[10px]"
-              onClick={() => document.getElementById('dropReview').scrollIntoView({ behavior: 'smooth' })}>
-              <span className="flex gap-1 md:gap-4 items-center">
-                <img src={reviewIcon} alt="review-icon" className="w-12 filter invert" />
-                <span className="text-white lg:font-bold text-sm lg:text-lg">
-                  Write Review
-                </span>
-              </span>
-            </button>
-            <button className=" flex items-center justify-center border border-Primary w-[40%] md:w-[30%] 2xl:w-[20%] h-16 p-6 rounded-[10px] bg-white"
-              onClick={handleShareClick}>
-              <span className="flex items-center gap-1 md:gap-4 ">
-                <img src={icon} alt="save" className="w-7 lg:w-8" />
-                <span className="text-Primary font-bold lg:text-lg">
-                  {buttonText}
-                </span>
-              </span>
-            </button>
-          </div>
-        </div >
+          </div >
+        )}
       </div>
       {currentReviews.filter(review => review.user.id === currentUserId).length > 0 &&
         <div className="xsm:m-5 m-10 md:m-20 xl:m-32">
@@ -440,7 +427,7 @@ export default function BusinessDetails() {
         </div>
       )}
 
-      <div className="bg-[#e7f1f7] p-10 md:p-20 xl:p-32 mt-32">
+      <div className="bg-Secondary p-10 md:p-20 xl:p-32 mt-32">
         <div className="flex flex-col gap-10 lg:gap-0 lg:flex-row justify-between items-center">
           <div className="text-center lg:text-left justify-center items-center lg:w-3/6 px-4">
             <div className="">
@@ -482,7 +469,7 @@ export default function BusinessDetails() {
         </div>
       </div>
       <div className="" id="showReview">
-        <div className="flex-col mx-auto text-justify bg-[#e7f1f7]">
+        <div className="flex-col mx-auto text-justify bg-Secondary">
           {currentReviews
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .map((review) => {
@@ -555,3 +542,4 @@ export default function BusinessDetails() {
     </>
   );
 }
+export default BusinessDetails

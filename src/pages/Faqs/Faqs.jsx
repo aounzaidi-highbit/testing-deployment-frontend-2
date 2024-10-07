@@ -1,11 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import faq from "../../assets/images/faq.png";
-import UpArrowIcon from "../../assets/icons/arrow.svg";
-// import DownArrowIcon from "../../assets/images/downArrow.png";
 import faqs from "./faqsData.js"
+import { faq } from "../../services/images.js";
 
-export default function Index() {
+const Index = () => {
 
   const toggleFAQ = (index) => {
     if (faqState === index) {
@@ -18,7 +16,7 @@ export default function Index() {
   const [faqState, setFaqState] = useState(null);
   return (
     <>
-      <div className="flex justify-evenly items-center bg-[#e7f1f7] p-20">
+      <div className="flex justify-evenly items-center bg-Secondary p-20">
         <div className="mt-32 lg:mt-0">
           <h2 className="mb-4 lg:pt-0">
             <span className="text-6xl lg:text-7xl font-normal ">
@@ -35,7 +33,7 @@ export default function Index() {
       <div id="accordionExample" className="m-32 rounded-xl bg-white">
         {
           faqs.map((faq, index) => (
-            <div className="rounded-lg mb-6 box-shadow2 bg-Primary">
+            <div className="rounded-lg mb-6 box-shadow2 bg-Primary hover:bg-Hover">
               <h2 className="mb-0 " id="headingOne ">
                 <button
                   className="group relative flex w-full items-center rounded-t-lg border-0  px-5 py-3 text-left text-base "
@@ -72,3 +70,4 @@ export default function Index() {
     </>
   );
 };
+export default Index

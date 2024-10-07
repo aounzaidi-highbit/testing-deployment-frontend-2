@@ -1,6 +1,4 @@
-import fullStar from "../assets/icons/full-star.svg";
-import halfStarImage from "../assets/icons/half-star.svg";
-import blankStar from "../assets/icons/blank-star.svg";
+import { blankStar, fullStar, halfStarImage } from "../services/images";
 
 const handleBrandClick = (brandName, brandId, navigate) => {
     navigate(`/review/${slugify(brandName)}`, { state: { id: brandId } });
@@ -75,7 +73,7 @@ const slugify = (text) => {
 };
 const ensureProtocol = (url) => {
     if (!url) return '#';
-    return url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`;
+    return url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
 };
 const renderStars = (rating) => {
     const fullStarsCount = Math.floor(rating);

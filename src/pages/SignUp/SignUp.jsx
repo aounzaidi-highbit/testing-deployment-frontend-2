@@ -188,7 +188,7 @@ const SignUp = () => {
                 </div>
                 {otpError && <p style={{ color: 'red' }}>{otpError}</p>}
               </div>
-              <button type="submit" className="bg-Primary rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto">
+              <button type="submit" className="bg-Primary hover:bg-Hover rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto">
                 Verify
               </button>
             </form>
@@ -331,7 +331,7 @@ const SignUp = () => {
                 {formErrors.email && <p className="text-red-500 mt-2">{formErrors.email}</p>}
                 {formErrors.verified && <p className="text-red-500 mt-2">User is not verified, please verify to login</p>}
               </div>
-              <button type="submit" className="bg-Primary rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto">
+              <button type="submit" className="bg-Primary rounded-full font-bold hover:bg-Hover text-white px-4 py-4 w-[95%] mx-auto">
                 {loadingSubmit ? "Loading ..." : "Signup"}
               </button>
             </form>

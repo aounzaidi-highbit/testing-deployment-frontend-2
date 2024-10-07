@@ -2,11 +2,11 @@ import React from "react";
 import policyIMG from "../../assets/images/policy.png";
 // import Vector from "../../assets/images/Vector.png";
 
-export default function index() {
+const index = () => {
 
   return (
     <>
-      <div className="bg-[#e7f1f7]">
+      <div className="bg-Secondary">
         <div className="flex justify-evenly py-10 items-center">
           <div className="">
             <h2 className="mb-4 pt-20 lg:pt-0">
@@ -74,3 +74,4 @@ export default function index() {
     </>
   );
 };
+export default index

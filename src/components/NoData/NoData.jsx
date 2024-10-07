@@ -1,5 +1,5 @@
 import React from "react";
-import NoDataImg from "../../assets/icons/nodata.svg";
+import { NoDataImg } from "../../services/images";
 
 const NoData = () => {
   return (

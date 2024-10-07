@@ -1,7 +1,7 @@
 import React from "react";
-import error from "../../assets/images/404.png";
+import { error } from "../../services/images";
 
-export default function index() {
+const index =()=> {
   return (
     <div className="my-20 px-4 lg:px-8 mx-auto">
       <div className="flex items-center justify-center">
@@ -10,3 +10,4 @@ export default function index() {
     </div>
   );
 };
+export default index

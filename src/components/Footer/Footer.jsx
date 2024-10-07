@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import footerImg from "../../assets/images/image.png";
-import bell from "../../assets/icons/bell.svg";
-// import facebook from "../../assets/icons/facebook.svg";
-// import twitter from "../../assets/icons/twitter.png";
-// import yt from "../../assets/icons/yt.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { bell, footerImg } from "../../services/images";
 
 export default function Index() {
   const currentDate = new Date();
@@ -90,12 +86,12 @@ export default function Index() {
               <input
                 type="email"
                 value={email}
-                className="shadow-box-shadow text-[12px] md:text-[15px] focus:outline-none font-medium text-Primary rounded-lg lg:rounded-full p-2 md:px-4 py-3 md:py-5 bg-white w-full"
+                className="shadow-box-shadow text-[12px] md:text-[15px] focus:outline-none font-medium text-Primary rounded-lg p-2 md:px-4 py-3 md:py-5 bg-white w-full"
                 placeholder="Enter Your Email to Stay Updated"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <button
-                className="bg-Primary justify-center hover:bg-Primary text-md md:text-xl font-bold px-3 py-2 md:px-4 md:py-[18px] text-white w-full lg:w-[40%] rounded-lg lg:rounded-full lg:rounded-l-none absolute right-0 flex gap-2 items-center"
+                className="bg-Primary justify-center hover:bg-Primary text-md md:text-xl font-bold px-3 py-2 md:px-4 md:py-[18px] text-white w-full lg:w-[30%] rounded-r-lg absolute right-0 flex gap-2 items-center"
                 onClick={handleButtonClick}
                 disabled={loading}
               >

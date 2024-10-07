@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { HTTP_CLIENT } from '../../utils/axiosClient';
-import showPassword from "../../assets/icons/show-password.svg";
-import hidePassword from "../../assets/icons/hide-password.svg";
+import { hidePassword, showPassword } from '../../services/images';
 
 const UpdatePassword = () => {
     const [showPassword1, setShowPassword1] = useState(false);
@@ -91,7 +90,7 @@ const UpdatePassword = () => {
                                 />
                             </div>
                             {error && <p className="text-red-600 my-2">{error}</p>}
-                            <button type="submit" className="bg-Primary rounded-full font-bold text-white px-4 py-4 w-[100%] mx-auto">
+                            <button type="submit" className="bg-Primary rounded-full hover:bg-Hover font-bold text-white px-4 py-4 w-[100%] mx-auto">
                                 {(message) ? 'Password Updated Successfully' : 'Update Password'}
                             </button>
                         </form>

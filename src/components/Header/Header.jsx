@@ -1,11 +1,9 @@
-import brandLogo from "../../assets/icons/brand-logo.svg";
-import menu from "../../assets/icons/menu.svg";
-import arrow from "../../assets/icons/arrow.svg";
 import { capitalizeWords, getInitials } from "../../utils/helper";
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { setupAxios } from "../../utils/axiosClient";
 import { getAllCategories } from "../../services/business";
+import { arrow, brandLogo, menu, userIcon } from "../../services/images";
 
 export default function Header() {
   let location = useLocation();
@@ -48,7 +46,7 @@ export default function Header() {
                   <Link to="/" className="block py-2 px-3 md:p-0 text-sm lg:text-[18px] rounded  text-Primary"
                   >Home</Link>
                 ) : (
-                  <Link to="/" className="block py-2 px-3 md:p-0 font-medium text-[#464F54] md:hover:text-Primary text-sm lg:text-[18px] rounded "
+                  <Link to="/" className="block py-2 px-3 md:p-0 text-sm lg:text-[18px] text-[#464F54] md:hover:text-Primary rounded "
                   >Home</Link>
                 )}
               </li>
@@ -75,8 +73,7 @@ export default function Header() {
                   <button
                     className=" flex gap-2 items-center py-2 px-3 md:p-0 text-[#464F54] font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"
                     onMouseEnter={() => setIsCatOpen(true)}>
-                  {/* onMouseLeave={() => setIsCatOpen(false)} */}
-                  
+                    {/* onMouseLeave={() => setIsCatOpen(false)} */}
                     Categories
                     <img src={arrow} alt="arrow-icon" className={`w-3 ${isCatOpen ? "rotate-180" : "rotate-0"}`} />
                   </button>
@@ -104,7 +101,7 @@ export default function Header() {
             <div className="flex xsm:gap-0 gap-5 lg:gap-10 items-center">
               {token ? (
                 <div className="relative flex justify-center items-center">
-                  <div className="border border-Primary w-7 lg:w-10 h-7 lg:h-10 flex items-center justify-center rounded-full md:text-lg lg:text-2xl">{getInitials(userName)}</div>
+                  <div className="border-2 border-Primary w-7 lg:w-10 h-7 lg:h-10 font-semibold bg-Primary text-white flex items-center justify-center rounded-full md:text-lg lg:text-2xl">{getInitials(userName)}</div>
                   <img src={arrow} alt="arrow-icon" className={`w-4 xsm:hidden cursor-pointer ml-3 ${isProfileOpen ? "rotate-180" : "rotate-0"}`}
                     onMouseEnter={() => setIsProfileOpen(true)}
                   // onMouseLeave={() => setIsProfileOpen(false)}
@@ -118,8 +115,7 @@ export default function Header() {
                         <Link to="/user-reviews">
                           <button
                             type="button"
-                            className="text-Primary w-full flex gap-2 items-center hover:bg-gray-100  focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center"
-                          >
+                            className="text-Primary w-full flex gap-2 items-center hover:bg-gray-100  focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
                             My Reviews
                           </button>
                         </Link>
@@ -127,8 +123,7 @@ export default function Header() {
                         <Link to="/user-reviews">
                           <button
                             type="button"
-                            className="text-[#464F54] w-full flex md:hover:text-Primary hover:bg-gray-100 gap-2 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center"
-                          >
+                            className="text-[#464F54] w-full flex md:hover:text-Primary hover:bg-gray-100 gap-2 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
                             My Reviews
                           </button>
                         </Link>
@@ -136,8 +131,7 @@ export default function Header() {
                       <button
                         onClick={() => handleLogout()}
                         type="button"
-                        className="text-[#464F54] flex gap-2 w-full md:hover:text-Primary hover:bg-gray-100 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center"
-                      >
+                        className="text-[#464F54] flex gap-2 w-full md:hover:text-Primary hover:bg-gray-100 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
                         Logout
                       </button>
                     </div>
@@ -146,15 +140,15 @@ export default function Header() {
               ) : (
                 <button type="button"
                   className="text-black flex gap-2 items-center bg-transparent focus:outline-none font-medium rounded-lg text-sm lg:text-[18px] px-4 py-2 text-center">
-                  <Link className="flex gap-2 md:hover:text-Primary xsm:text-[18px]" to="/signin">
-                    {/* <img src={forwardImg} alt="forwarding" /> */}
+                  <Link className="flex gap-2 md:hover:text-Primary xsm:text-[18px] items-center" to="/signin">
+                    <img src={userIcon} alt="user" className="w-7" />
                     Login
                   </Link>
                 </button>
               )}
               <Link to="/contact">
                 <button
-                  className="text-white hidden md:block bg-Primary hover:bg-Primary focus:outline-none font-bold rounded-lg text-[16px] md:text-[14px] lg:text-[18px] px-4 py-2 md:px-3 md:py-1 lg:px-4 lg:py-2"
+                  className="text-white hidden md:block bg-Primary hover:bg-Hover focus:outline-none font-bold rounded-lg text-[16px] md:text-[14px] lg:text-[18px] px-4 py-2 md:px-3 md:py-1 lg:px-4 lg:py-2"
                   type="button">
                   Contact
                 </button>
@@ -166,8 +160,7 @@ export default function Header() {
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm border rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200"
               aria-controls="navbar-cta"
-              aria-expanded="false"
-            >
+              aria-expanded="false">
               <img src={menu} alt="menu-icon" />
             </button>
           </div>

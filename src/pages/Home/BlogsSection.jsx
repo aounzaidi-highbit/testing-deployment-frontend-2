@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const BlogsSection = () => {
     return (
         <div className='flex xsm:flex-col sm:items-center relative sm:h-[70vh] xsm:mx-8 xsm:my-32 sm:m-20 xl:m-32'>
-            <div className="xsm:p-5 bg-[#e7f1f7] flex items-center px-8 lg:px-16 py-10 2xl:p-20 sm:rounded-3xl xsm:m-0 rounded-tl-3xl rounded-tr-3xl">
+            <div className="xsm:p-5 bg-Secondary flex items-center px-8 lg:px-16 py-10 2xl:p-20 sm:rounded-3xl xsm:m-0 rounded-tl-3xl rounded-tr-3xl">
                 <div className="text-black">
                     <h1 className="sm:text-sm xsm:text-xl md:text-xl lg:text-2xl xl:text-[32px] font-semibold">Get in Touch with Us</h1>
                     <p className="sm:w-5/12 md:w-6/12 lg:w-2/5 2xl:w-3/6 xsm:text-[15px] sm:text-[8px] md:text-[12px] lg:text-[14px] xl:text-[18px] my-3 sm:my-5">
@@ -16,7 +16,7 @@ const BlogsSection = () => {
                     </Link>
                 </div>
             </div>
-            <div className="p-5 lg:p-10 sm:absolute flex flex-col sm:gap-5 2xl:gap-8 justify-center shadow-box-shadow border-2 bg-white sm:min-h-40 md:min-h-[60vh] sm:w-2/5 2xl:w-4/12 sm:right-12 lg:right-20 xl:right-28 2xl:right-40 sm:rounded-3xl rounded-bl-3xl rounded-br-3xl">
+            <div className="p-5 lg:p-10 sm:absolute flex flex-col sm:gap-5 2xl:gap-8 justify-center shadow-box-shadow border-2 bg-white sm:w-2/5 2xl:w-4/12 sm:right-12 lg:right-20 xl:right-28 2xl:right-40 sm:rounded-3xl rounded-bl-3xl rounded-br-3xl">
                 <h1 className=" font-semibold sm:text-sm flex lg:mt-5 flex-col lg:gap-2 lg:text-2xl xl:text-[32px] md:text-xl">
                     <span className='xsm:text-xl '>Discover Insights</span>
                     <span className='xsm:text-xl '>in Our Latest Blog Posts</span>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import tickIcon from "../../assets/icons/tick.svg";
 import { addReview, getSingleProfiles, reviewGet } from "../../services/business";
 import { setupAxios } from "../../utils/axiosClient";
 import { StarRating } from "../../utils/helper";
+import { tickIcon } from "../../services/images";
 
 const AddReview = ({ brandId }) => {
     const [rating, setRating] = useState(0);
@@ -11,7 +11,6 @@ const AddReview = ({ brandId }) => {
     const [title, setTitle] = useState("");
     const [loadingReview, setLoadingReview] = useState(false);
     const [base64Image, setBase64Image] = useState("");
-    // const [allReview, setAllReview] = useState([]);
     const [file, setFile] = useState(null);
     // const [loading, setLoading] = useState(true);
     // const [profile, setProfile] = useState([]);
@@ -123,8 +122,7 @@ const AddReview = ({ brandId }) => {
     const stack2 = (
         <div
             {...getRootProps()}
-            className="mt-[14px] bg-[#f3f8fb] w-full h-[142px] flex justify-center items-center rounded-md border-2 border-dotted border-primary"
-        >
+            className="mt-[14px] bg-Secondary w-full h-[142px] flex justify-center items-center rounded-md border-2 border-dotted border-primary">
             <input {...getInputProps()} />
             <div className="w-full flex flex-col items-center justify-center">
                 <div className="text-[16px] leading-[18px] text-[#0F0F0F]">
@@ -186,14 +184,14 @@ const AddReview = ({ brandId }) => {
                 {loadingReview ? (
                     <button
                         type="button"
-                        className="bg-Primary text-xl flex items-center justify-center px-[31.5px] py-2 rounded-md text-white min-w-[16%]"
+                        className="bg-Primary hover:bg-Hover text-xl flex items-center justify-center px-[31.5px] py-2 rounded-md text-white min-w-[16%]"
                     >
                         Submiting .....
                     </button>
                 ) : submitSuccess ? (
                     <button
                         type="button"
-                        className="bg-Primary text-xl py-2 px-3 flex gap-2.5 justify-center items-center rounded-md text-white min-w-[16%]"
+                        className="bg-Primary hover:bg-Hover text-xl py-2 px-3 flex gap-2.5 justify-center items-center rounded-md text-white min-w-[16%]"
                         disabled
                     >
                         <img src={tickIcon} className="w-7" alt="submit-icon" />
@@ -202,7 +200,7 @@ const AddReview = ({ brandId }) => {
                 ) : (
                     <button
                         type="submit"
-                        className="bg-Primary min-w-[16%] text-lg lg:text-xl py-2 px-3 rounded-md text-white"
+                        className="bg-Primary hover:bg-Hover min-w-[16%] text-lg lg:text-xl py-2 px-3 rounded-md text-white"
                     >
                         Submit Review
                     </button>

@@ -1,11 +1,10 @@
 import React from 'react'
-import circleIcon from "../../assets/icons/circle.svg"
-// import phone from "../../assets/images/phone.png"
+import { circleIcon } from '../../services/images'
 
 const About = () => {
   return (
     <div>
-      <div className="bg-[#e7f1f7] p-10">
+      <div className="bg-Secondary p-10">
         <div className="">
           <div className="grid lg:grid-cols-2 gap-6 place-items-center">
             <div className="">
@@ -20,7 +19,7 @@ const About = () => {
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </p>
-              <button className="bg-Primary text-xl lg:text-2xl font-bold p-3 rounded-md text-white mt-4">
+              <button className="bg-Primary hover:bg-Hover text-xl lg:text-2xl font-bold p-3 rounded-md text-white mt-4">
                 Get Started
               </button>
             </div>

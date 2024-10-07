@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-// import Vector from "../../assets/images/vector-category.png";
-import cloths from "../../assets/icons/cloths.svg";
 import { getAllCategories } from "../../services/business";
 import { setupAxios } from "../../utils/axiosClient";
 import { Link } from "react-router-dom";
 import { capitalizeWords } from "../../utils/helper";
+import { cloths } from "../../services/images";
 
 const PopularCategories = () => {
   const [category, setCategory] = useState([]);
@@ -49,10 +48,6 @@ const PopularCategories = () => {
             </span>
             <span className="text-2xl lg:text-4xl font-semibold relative">
               Browse Top Categories
-              {/* <img
-                className="flex justify-end absolute right-0 -bottom-5 h-[28px]"
-                src={Vector}
-                alt="arrow" /> */}
             </span>
           </h2>
         </div>

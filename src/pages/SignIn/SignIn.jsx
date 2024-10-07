@@ -165,7 +165,7 @@ const SignIn = ({ brandId, text, customStyles = {} }) => {
                 </div>
                 {otpError && <p className="text-red-500">{otpError}</p>}
               </div>
-              <button type="submit" className="text-Primary2 rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto">
+              <button type="submit" className="rounded-full font-bold text-white hover:bg-Hover px-4 py-4 w-[95%] mx-auto">
                 Verify
               </button>
             </form>
@@ -224,14 +224,14 @@ const SignIn = ({ brandId, text, customStyles = {} }) => {
               </div>
               {verificationError ?
                 (<button
-                  className="bg-Primary rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto"
+                  className="bg-Primary rounded-full font-bold text-white hover:bg-Hover px-4 py-4 w-[95%] mx-auto"
                   onClick={() => setShowOtpInput(true)}
                 >
                   Verify Now
                 </button>)
                 :
                 (<button
-                  className="bg-Primary rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto"
+                  className="bg-Primary hover:bg-Hover rounded-full font-bold text-white px-4 py-4 w-[95%] mx-auto"
                   type="submit"
                 >
                   {loadingSubmit ? "Signing in ..." : "Signin"}

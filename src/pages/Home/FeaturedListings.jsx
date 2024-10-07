@@ -6,7 +6,7 @@ import defaultImg from "../../assets/icons/default-brand.svg";
 import { HTTP_CLIENT } from "../../utils/axiosClient";
 import { getRatingDetails, reviewGet } from "../../services/business";
 import { CardLoader } from "../../components/Loaders/loader";
-// import NoData from "../../components/NoData/NoData";
+import NoData from "../../components/NoData/noData";
 // import AOS from "aos";
 import { useNavigate } from "react-router-dom";
 import { capitalizeWords, ensureProtocol, renderStars, slugify } from "../../utils/helper";
@@ -38,7 +38,7 @@ const ProfileCard = React.memo(({ profile, handleBrandClick, renderStars, ensure
               />
             </div>
           </div>
-          <div className="bg-[#e7f1f7] border-border2 pt-16 p-4 -mt-[50px] rounded-2xl">
+          <div className="bg-Secondary border-border2 pt-16 p-4 -mt-[50px] rounded-2xl">
             <div className="flex items-center justify-between gap-4">
               <div className="flex gap-2 items-center">
                 <p className="bg-Primary p-2 text-xl rounded-xl text-white flex items-center justify-center">
@@ -66,7 +66,7 @@ const ProfileCard = React.memo(({ profile, handleBrandClick, renderStars, ensure
             </h6>
             <p className="text-[#8A8A8A] text-[14px] overflow-hidden">
               {profile.description?.length > 70
-                ? `${profile.description.substring(0, 65)} ...`
+                ? `${profile.description.substring(0, 100)} ...`
                 : profile.description || "No Description Available"}
             </p>
 
@@ -183,6 +183,8 @@ export default function FeaturedListings() {
       </div>
       {loading ? (
         <CardLoader />
+      ) : profiles.length === 0 ? (
+        <NoData />
       ) : (
         <div className="mx-8 sm:mx-0 gap-x-8 gap-y-6 xl:gap-x-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {profiles.slice(0, visibleProfiles).map((profile) => (

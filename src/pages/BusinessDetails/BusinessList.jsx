@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import Vector from "../../assets/images/Vector.png";
-import search from "../../assets/icons/search.svg";
 import OurListed from "../Home/OurListed";
 import { getAllProfiles, getRatingDetails, getSearchProfile } from "../../services/business";
 import { setupAxios } from "../../utils/axiosClient";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import ReactPaginate from "react-paginate";
-import defaultImg from "../../assets/icons/default-brand.svg";
-import linkIcon from "../../assets/icons/link-icon.svg";
-import star from "../../assets/icons/full-star.svg";
-import sort from "../../assets/icons/sort.svg";
 import { capitalizeWords, ensureProtocol, handleBrandClick, renderStars } from "../../utils/helper";
-import filter from "../../assets/icons/filter.svg";
-import cross from "../../assets/icons/cross.svg";
-// import NoData from "../../components/NoData/noData";
+import NoData from "../../components/NoData/noData";
 import { ListLoader } from "../../components/Loaders/loader";
+import { cross, defaultImg, filter, linkIcon, search, sort, star } from "../../services/images";
 
 const BusinessList = () => {
   const navigate = useNavigate();
@@ -157,7 +150,7 @@ const BusinessList = () => {
             </h2>
           </div>
           <div className="relative mt-10">
-            <img src={search} alt="search" className="cursor-pointer absolute top-4 left-5" />
+            <img src={search} alt="search" className="cursor-pointer absolute top-4 left-7 filter-Primary w-8" />
             <input
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -179,7 +172,7 @@ const BusinessList = () => {
           <div className="rounded-lg px-3 shadow-box-shadow bg-white h-3/5 w-2/6 hidden lg:block">
             <div className="flex justify-between items-center my-5">
               <p className="text-[20px]">Filter By</p>
-              <p className="text-[15px] underline cursor-pointer hover:text-Primary"
+              <p className="text-[15px] underline cursor-pointer hover:text-Hover"
                 onClick={() => {
                   handleRatingClick("")
                   setOrdering("")
@@ -188,9 +181,9 @@ const BusinessList = () => {
             <p className="text-[15px]">Rating</p>
             <div className="flex gap-1 my-5">
               <button className="border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary" onClick={() => handleRatingClick("")}>All</button>
-              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary" onClick={() => handleRatingClick(3.0)}><img src={star} alt="star-image" className="w-6" />3.0+</button>
-              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary" onClick={() => handleRatingClick(4.0)}><img src={star} alt="star-image" className="w-6" />4.0+</button>
-              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary" onClick={() => handleRatingClick(4.5)}><img src={star} alt="star-image" className="w-6" />4.5+</button>
+              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary gap-1" onClick={() => handleRatingClick(3.0)}><img src={star} alt="star-image" className="w-5" />3.0+</button>
+              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary gap-1" onClick={() => handleRatingClick(4.0)}><img src={star} alt="star-image" className="w-5" />4.0+</button>
+              <button className="flex border w-full justify-center items-center p-2 rounded-lg focus:border focus:border-Primary gap-1" onClick={() => handleRatingClick(4.5)}><img src={star} alt="star-image" className="w-5" />4.5+</button>
             </div>
             <p className="text-[15px]">Location</p>
             <div className="flex gap-1 my-2">
@@ -217,6 +210,8 @@ const BusinessList = () => {
           <div className="min-h-[90vh] w-5/6">
             {loading ? (
               <ListLoader />
+            ) : profile.length === 0 ? (
+              <NoData />
             ) : (
               profile.map((item) => {
                 const websiteURL = ensureProtocol(item.website);
@@ -233,7 +228,7 @@ const BusinessList = () => {
                       </div>
                       <div className="px-5 xsm:px-0 w-[85%] mx-auto xsm:flex xsm:flex-col">
                         <h2 className="xsm:text-[18px] xsm:text-center md:text-xl font-normal xsm:mt-2">
-                          <a onClick={() => handleBrandClick(item.name, item.id, navigate)} className="cursor-pointer font-bold hover:text-Primary">
+                          <a onClick={() => handleBrandClick(item.name, item.id, navigate)} className="cursor-pointer font-bold hover:text-Hover">
                             {capitalizeWords(item?.name)}
                           </a>
                         </h2>
@@ -250,7 +245,7 @@ const BusinessList = () => {
                           <div>
                             <a href={websiteURL} className="flex items-center" target="_blank" rel="noopener noreferrer">
                               <img src={linkIcon} alt="link-icon" className="w-[16px] h-[16px]" />
-                              <span className="text-md mx-1 text-Primary">{item.website}</span>
+                              <span className="text-md mx-1 text-Primary hover:text-Hover">{item.website}</span>
                             </a>
                           </div>
                         </div>
@@ -258,7 +253,7 @@ const BusinessList = () => {
                           {item.description?.length > 100 ? (
                             <div className="">
                               {item.description.substring(0, 100)}
-                              <button onClick={() => handleBrandClick(item.name, item.id, navigate)} className="text-Primary">...read more</button>
+                              <button onClick={() => handleBrandClick(item.name, item.id, navigate)} className="text-Primary hover:text-Hover">...read more</button>
                             </div>
                           ) : (
                             item.description
@@ -268,7 +263,7 @@ const BusinessList = () => {
                     </div>
                     <div className="flex items-center mx-auto justify-center h-full w-full md:w-1/6 xsm:px-5">
                       <button onClick={() => handleBrandClick(item.name, item.id, navigate)}
-                        className="text-white bg-Primary w-full text-lg rounded-lg hover:bg-[#4ea0db] flex items-center justify-center px-8 py-3 my-2 ">
+                        className="text-white bg-Primary w-full text-lg rounded-lg hover:bg-Hover flex items-center justify-center px-8 py-3 my-2 ">
                         View
                       </button>
                     </div>
@@ -279,13 +274,13 @@ const BusinessList = () => {
             {total >= 9 && (
               <ReactPaginate
                 className="flex justify-center my-10"
-                activeClassName="bg-Primary !text-white"
+                activeClassName="bg-Primary !text-white hover:bg-Hover"
                 breakClassName="border xsm:w-20 flex justify-center pointer-events-none cursor-default"
                 breakLabel={<div className="cursor-default"><span className=" sm:hidden">{" _ "}</span><span className="xsm:hidden">{" _ " + " _ " + " _ "}</span></div>}
                 marginPagesDisplayed={1}
-                nextClassName={currentPage === Math.ceil(total / 10) - 1 ? "hidden" : "text-white bg-Primary text-lg rounded-r-lg flex items-center border px-2"}
-                nextLabel={<><div className="xsm:hidden">Next&gt;</div><div className="sm:hidden w-5 flex justify-center text-2xl">&gt;</div></>}
-                previousClassName={currentPage === 0 ? "hidden" : "text-white bg-Primary text-lg rounded-l-lg flex items-center border px-2"}
+                nextClassName={currentPage === Math.ceil(total / 10) - 1 ? "hidden" : "text-white bg-Primary hover:bg-Hover text-lg rounded-r-lg flex items-center border px-2"}
+                nextLabel={<><div className="xsm:hidden ">Next&gt;</div><div className="sm:hidden w-5 flex justify-center text-2xl">&gt;</div></>}
+                previousClassName={currentPage === 0 ? "hidden" : "text-white bg-Primary hover:bg-Hover text-lg rounded-l-lg flex items-center border px-2"}
                 previousLabel={<><div className="xsm:hidden">&lt;Prev</div><div className="sm:hidden w-5 flex justify-center text-2xl">&lt;</div></>}
                 forcePage={currentPage}
                 onPageChange={handlePageClick}

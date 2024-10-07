@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import postIMG from "../../assets/images/contact.png";
 import { contact } from "../../services/business";
+import { postIMG } from "../../services/images";
 
-export default function Contact() {
+const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -46,7 +46,7 @@ export default function Contact() {
 
   return (
     <div>
-      <div className="px-32 bg-[#e7f1f7]">
+      <div className="px-32 bg-Secondary">
         <div className="pt-10">
           <div className="flex justify-between items-center">
             <div className="">
@@ -59,7 +59,7 @@ export default function Contact() {
                 Got questions or feedback? We're here to help! Contact us anytime and we'll get back to you quickly</p>
             </div>
             <div className="pt-10">
-              <img src={postIMG} alt="post Image" className="" />
+              <img src={postIMG} alt="post Image" />
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="bg-Primary shadow-box-shadow text-xl lg:text-xl p-3 rounded-lg text-white hover:bg-Primary"
+              className="bg-Primary shadow-box-shadow text-xl lg:text-xl p-3 rounded-lg text-white hover:bg-Hover"
               disabled={loading}
             >
               {loading ? "Sending..." : "Send Message"}
@@ -164,3 +164,4 @@ export default function Contact() {
     </div>
   );
 }
+export default Contact

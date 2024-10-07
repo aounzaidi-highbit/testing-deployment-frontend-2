@@ -5,16 +5,6 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // container: {
-    //   center: true,
-    //   padding: {
-    //     DEFAULT: "1rem",
-    //     sm: "1rem",
-    //     lg: "2rem",
-    //     xl: "3rem",
-    //     "2xl": "4rem",
-    //   },
-    // },
     extend: {
       screens: {
         xsm: { max: '639px' },
@@ -47,6 +37,8 @@ export default {
       },
       colors: {
         Primary: '#287BB7',
+        Secondary: '#e7f1f7',
+        Hover:'#215b85',
       },
       filter: {
         'Primary': 'invert(40%) sepia(95%) saturate(736%) hue-rotate(173deg) brightness(81%) contrast(81%)',

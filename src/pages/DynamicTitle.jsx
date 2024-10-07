@@ -3,9 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const DynamicTitle = () => {
     const location = useLocation();
-
     const getPageName = (pathname) => {
-
         const formatTitle = (slug) => {
             return slug.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
         };
@@ -13,7 +11,6 @@ const DynamicTitle = () => {
             const slug = pathname.split("/review/")[1];
             return `${formatTitle(slug)}`;
         }
-
         switch (pathname) {
             case "/":
                 return "Home";
@@ -41,13 +38,10 @@ const DynamicTitle = () => {
                 return "Error";
         }
     };
-
     useEffect(() => {
         const pageName = getPageName(location.pathname);
         document.title = `${pageName} - Brand Search Engine`;
     }, [location.pathname]);
-
     return null;
 };
-
 export default DynamicTitle;
