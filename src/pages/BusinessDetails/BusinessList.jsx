@@ -73,9 +73,6 @@ const BusinessList = () => {
     }
   };
 
-  const [activeRating, setActiveRating] = useState(null); // State for active rating filter
-  const [activeSort, setActiveSort] = useState(null); // State for active sort option
-
   useEffect(() => {
     getProfile(currentPage + 1, category, rating);
   }, [category, value, rating, currentPage, ordering]);

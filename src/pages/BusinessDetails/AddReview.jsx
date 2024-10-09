@@ -12,15 +12,8 @@ const AddReview = ({ brandId }) => {
     const [loadingReview, setLoadingReview] = useState(false);
     const [base64Image, setBase64Image] = useState("");
     const [file, setFile] = useState(null);
-    // const [loading, setLoading] = useState(true);
-    // const [profile, setProfile] = useState([]);
-
     const [submitSuccess, setSubmitSuccess] = useState(false);
-    // const [submitError, setSubmitError] = useState(false);
-    // console.log("id form got = " + brandId);
-
     const bussiness = brandId;
-    // console.log("id form bussiness = " + bussiness);
 
     useEffect(() => {
         getProfile();
@@ -32,11 +25,9 @@ const AddReview = ({ brandId }) => {
         setLoadingReview(true);
         setupAxios();
         setSubmitSuccess(false);
-        // setSubmitError(false);
         const userId = localStorage.getItem("user_id");
         console.log("Retrieved User ID:", userId);
 
-        // Convert bussiness to number and log for debugging
         const brandProfileId = parseInt(bussiness);
         console.log("Business ID:", brandProfileId);
 
@@ -52,13 +43,10 @@ const AddReview = ({ brandId }) => {
 
         try {
             const reviewResponse = await addReview(payload);
-            console.log("Review submission response:", reviewResponse);
+            console.log("Review submission response: ", reviewResponse);
 
             const resp = await reviewGet(brandProfileId);
-            console.log("Updated reviews fetched:", resp.data);
-
-            // setAllReview(resp?.data);
-
+            console.log("Updated reviews fetched: ", resp.data);
             setSubmitSuccess(true);
 
             setRating(0);
@@ -70,8 +58,6 @@ const AddReview = ({ brandId }) => {
                 setSubmitSuccess(false);
             }, 3000);
         } catch (error) {
-            // setSubmitError(true);
-
             if (error.response) {
                 console.error("Error Response:", error.response);
             } else {
@@ -88,7 +74,6 @@ const AddReview = ({ brandId }) => {
         setupAxios();
         try {
             const res = await getSingleProfiles(bussiness);
-            // setProfile(res?.data);
         } catch (error) {
             console.error(error);
         }
@@ -99,7 +84,6 @@ const AddReview = ({ brandId }) => {
         setupAxios();
         try {
             const res = await reviewGet(Number(bussiness));
-            // setAllReview(res?.data);
         } catch (error) {
             console.error(error);
         } finally {
