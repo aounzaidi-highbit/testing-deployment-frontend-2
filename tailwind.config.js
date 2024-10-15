@@ -1,55 +1,49 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1rem",
+        lg: "2rem",
+        xl: "3rem",
+        "2xl": "4rem",
+      },
+    },
     extend: {
       screens: {
         xsm: { max: '639px' },
       },
       backgroundImage: {
         "footer-image": "url('/src/assets/images/bottom.png')",
+        "contact-image": "url('/src/assets/images/contact-image.png')",
+        "categories-image": "url('/src/assets/images/bg-categories.png')",
+        "blogs-image": "url('/src/assets/images/bg-blog.png')",
         "blogs-card-image": "url('/src/assets/images/blog-card.png')",
         "hero-background": "url('/src/assets/images/bg-hero.png')",
-        "shimmer": 'linear-gradient(90deg, #f3f3f3 25%, #ecebeb 50%, #f3f3f3 75%)',
       },
       boxShadow: {
         "box-shadow": "rgba(0, 0, 0, 0.07) 0px 0px 10px 3px",
+        "light-shadow": "#EAF7FF 0px 0px 10px 3px",
       },
       keyframes: {
         grow: {
           '0%': { transform: 'scale(1)' },
           '100%': { transform: 'scale(1.05)' },
         },
-        shimmer: {
-          '0%': { backgroundPosition: '-100% 0' },
-          '100%': { backgroundPosition: '100% 0' },
-        },
       },
       animation: {
         grow: 'grow 0.3s ease-in-out forwards',
-        shimmer: 'shimmer 1.5s infinite linear',
       },
-      backgroundSize: {
-        'shimmer-size': '200% 100%',
+      borderColor: {
+        "background": "linear-gradient(111.08deg, #F4293E 0.67%, #FF8B49 100%)",
       },
-      colors: {
-        Primary: '#287BB7',
-        Secondary: '#e7f1f7',
-        Hover:'#215b85',
-      },
-      filter: {
-        'Primary': 'invert(40%) sepia(95%) saturate(736%) hue-rotate(173deg) brightness(81%) contrast(81%)',
+      borderGradient: {
+        "border-gradient": "#287BB7",
       },
     },
   },
-  variants: {
-    extend: {
-    },
-  },
-  plugins: [
-    require('tailwindcss-filters'),
-  ],
-}
+  plugins: [require('tailwind-scrollbar-hide')]
+};

@@ -1,226 +1,273 @@
-import { capitalizeWords, getInitials } from "../../utils/helper";
-import { Link, useLocation } from "react-router-dom";
+import brandLogo from "../../assets/images/brand-logo.svg";
+import forwardImg from "../../assets/images/forward.svg";
+import { Link, Router, useLocation } from "react-router-dom";
+
+// categoryy code
 import React, { useEffect, useState } from "react";
 import { setupAxios } from "../../utils/axiosClient";
-import { getAllCategories } from "../../services/business";
-import { arrow, brandLogo, menu, userIcon } from "../../services/images";
+import { getAllCategories } from "../../services/categories";
+
+// categoryy code
 
 export default function Header() {
-  let location = useLocation();
+  const [currentStatus, SetCurrentStatus] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isCatOpen, setIsCatOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  let location = useLocation();
+  // categoryy code
   const [category, setCategory] = useState([]);
-  const userName = localStorage.getItem("first_name")
+  const [loading, setLoading] = useState(true);
+
+  const capitalizeWords = (str) => {
+    if (!str) return '';
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   const getCategories = async () => {
     setupAxios();
     try {
+      setLoading(false);
       const res = await getAllCategories();
       setCategory(res?.data?.results);
     } catch (error) {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getCategories();
   }, []);
+  // categoryy code
 
   const token = localStorage.getItem("access_token");
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
   };
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+  const handleMouseEnterCat = () => {
+    setIsCatOpen(true);
+  };
+
+  const handleMouseLeaveCat = () => {
+    setIsCatOpen(false);
+  };
 
   return (
     <div className=" ">
       <nav className="shadow-lg relative z-50 w-full">
-        <div className="flex flex-wrap items-center justify-between mx-auto py-6 px-10  lg:container ">
-          <div className="flex items-center gap-8 lg:gap-16 ">
-            <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <div className="flex flex-wrap items-center justify-between mx-auto py-6 h- container ">
+          <div className="flex items-center gap-16 ">
+            <a
+              href="/"
+              className="flex items-center space-x-3 rtl:space-x-reverse"
+            >
               <img src={brandLogo} className="h-8" alt="Brand Logo" />
-            </Link>
-            <ul className="hidden md:visible md:flex font-medium gap-2 lg:gap-5 p-4 md:p-0 mt-4 rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:border-gray-700">
+            </a>
+            <ul className="hidden md:flex flex-col font-medium gap-5 p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:border-gray-700">
               <li>
                 {location?.pathname === "/" ? (
-                  <Link to="/" className="block py-2 px-3 md:p-0 text-sm lg:text-[18px] rounded  text-Primary"
-                  >Home</Link>
+                  <a
+                    href="/"
+                    className="block py-2 px-3 md:p-0  font-extrabold text-[18px] rounded md:bg-transparent text-[#287BB7]"
+                    aria-current="page"
+                  >
+                    Home
+                  </a>
                 ) : (
-                  <Link to="/" className="block py-2 px-3 md:p-0 text-sm lg:text-[18px] text-[#464F54] md:hover:text-Primary rounded "
-                  >Home</Link>
+                  <a
+                    href="/"
+                    className="block py-2 px-3 md:p-0 font-extrabold text-[#464F54] text-[18px] rounded md:bg-transparent "
+                    aria-current="page"
+                  >
+                    Home
+                  </a>
                 )}
               </li>
-              {location?.pathname === "/business-list" ? (
+              {location?.pathname === "/businessList" ? (
                 <li>
-                  <Link to="/business-list" className="block py-2 px-3 md:p-0 text-Primary font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"> Bussiness List</Link>
+                  <a
+                    href="#"
+                    className="block py-2 px-3 md:p-0 text-[#287BB7] font-medium text-[18px] rounded  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <Link to="/businessList"> Bussiness List</Link>
+                  </a>
                 </li>
               ) : (
                 <li>
-                  <Link to="/business-list" className="block py-2 px-3 md:p-0 text-[#464F54] font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"> Bussiness List</Link>
+                  <a
+                    href="#"
+                    className="block py-2 px-3 md:p-0 text-[#464F54] font-medium text-[18px] rounded  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <Link to="/businessList"> Bussiness List</Link>
+                  </a>
                 </li>
               )}
               {location?.pathname === "/blogs" ? (
                 <li>
-                  <Link to="/blogs" className="block py-2 px-3 md:p-0 text-Primary font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"> Blogs</Link>
+                  <a
+                    href="#"
+                    className="block py-2 px-3 md:p-0 text-[#287BB7] font-medium text-[18px] rounded  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <Link to="/blogs"> Blogs</Link>
+                  </a>
                 </li>
               ) : (
                 <li>
-                  <Link to="/blogs" className="block py-2 px-3 md:p-0 text-[#464F54] font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"> Blogs</Link>
+                  <a
+                    href="#"
+                    className="block py-2 px-3 md:p-0 text-[#464F54] font-medium text-[18px] rounded  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    <Link to="/blogs"> Blogs</Link>
+                  </a>
                 </li>
               )}
+
               <li>
                 <div className="relative">
                   <button
-                    className=" flex gap-2 items-center py-2 px-3 md:p-0 text-[#464F54] font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"
-                    onMouseEnter={() => setIsCatOpen(true)}>
-                    {/* onMouseLeave={() => setIsCatOpen(false)} */}
+                    className=" flex items-center py-2 px-3 md:p-0 text-[#464F54] font-medium text-[18px] rounded  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    onMouseEnter={handleMouseEnterCat}
+                    onMouseLeave={handleMouseLeaveCat}
+                  >
                     Categories
-                    <img src={arrow} alt="arrow-icon" className={`w-3 ${isCatOpen ? "rotate-180" : "rotate-0"}`} />
+                    <svg
+                      className="-mr-1 ml-2 h-5 w-5 hover:rotate-180"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.707 14.707a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 12.586l4.293-4.293a1 1 0 111.414 1.414l-5 5z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </button>
+
                   {isCatOpen && (
-                    <div
-                      className="absolute left-0 w-56 mt-2 bg-white rounded-md shadow-box-shadow"
-                      onMouseEnter={() => setIsCatOpen(true)}
-                      onMouseLeave={() => setIsCatOpen(false)}>
-                      {(category?.map((item) => {
-                        return (
-                          <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer md:hover:text-Primary"
-                            key={item?.id}
-                            to={`/business-list?category=${item?.name}`}
-                            onClick={() => window.scrollTo(0, 0)}>{capitalizeWords(item?.name)}<br /></Link>
-                        );
-                      })
-                      )}
-                    </div>
+                    <>
+                      <div
+                        className="absolute right-0 mt-0 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        onMouseEnter={handleMouseEnterCat}
+                        onMouseLeave={handleMouseLeaveCat}
+                      >
+                        <div className="py-1">
+                          {(
+                            category?.map((item) => {
+                              return (
+                                <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer md:hover:text-[#287BB7]"
+                                  key={item?.id}
+                                  to={`/businessList?category=${item?.name}`}
+                                  onClick={() => window.scrollTo(0, 0)}
+                                >
+                                  {capitalizeWords(item?.name)} <br />
+                                </Link>
+                              );
+                            })
+                          )}
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
               </li>
             </ul>
           </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div className="flex xsm:gap-0 gap-5 lg:gap-10 items-center">
+            <div className="flex gap-4">
               {token ? (
-                <div className="relative flex justify-center items-center">
-                  <div className="border-2 border-Primary w-7 lg:w-10 h-7 lg:h-10 font-semibold bg-Primary text-white flex items-center justify-center rounded-full md:text-lg lg:text-2xl">{getInitials(userName)}</div>
-                  <img src={arrow} alt="arrow-icon" className={`w-4 xsm:hidden cursor-pointer ml-3 ${isProfileOpen ? "rotate-180" : "rotate-0"}`}
-                    onMouseEnter={() => setIsProfileOpen(true)}
-                  // onMouseLeave={() => setIsProfileOpen(false)}
-                  />
-                  {isProfileOpen && (
-                    <div
-                      className="absolute left-0 mt-36 w-52 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none xsm:hidden"
-                      onMouseEnter={() => setIsProfileOpen(true)}
-                      onMouseLeave={() => setIsProfileOpen(false)}>
-                      {location?.pathname === "/user-reviews" ? (
-                        <Link to="/user-reviews">
-                          <button
-                            type="button"
-                            className="text-Primary w-full flex gap-2 items-center hover:bg-gray-100  focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
-                            My Reviews
-                          </button>
-                        </Link>
-                      ) : (
-                        <Link to="/user-reviews">
-                          <button
-                            type="button"
-                            className="text-[#464F54] w-full flex md:hover:text-Primary hover:bg-gray-100 gap-2 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
-                            My Reviews
-                          </button>
-                        </Link>
-                      )}
-                      <button
-                        onClick={() => handleLogout()}
-                        type="button"
-                        className="text-[#464F54] flex gap-2 w-full md:hover:text-Primary hover:bg-gray-100 items-center focus:outline-none font-medium rounded-lg text-[12px] lg:text-[15px] px-4 py-2 text-center">
-                        Logout
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <button
+                  onClick={() => handleLogout()}
+                  type="button"
+                  className="text-black flex gap-2 items-center bg-transparent focus:outline-none font-medium rounded-lg lg:text-[18px] px-4 py-2 text-center"
+                >
+                  Logout
+                </button>
               ) : (
-                <button type="button"
-                  className="text-black flex gap-2 items-center bg-transparent focus:outline-none font-medium rounded-lg text-sm lg:text-[18px] px-4 py-2 text-center">
-                  <Link className="flex gap-2 md:hover:text-Primary xsm:text-[18px] items-center" to="/signin">
-                    <img src={userIcon} alt="user" className="w-7" />
-                    Login
+                <button
+                  type="button"
+                  className="text-black flex gap-2 items-center bg-transparent focus:outline-none font-medium rounded-lg lg:text-[18px] px-4 py-2 text-center"
+                >
+                  <Link className="flex gap-2 md:hover:text-[#287BB7]" to="/signin">
+                    <img src={forwardImg} alt="forwarding" />Login
                   </Link>
                 </button>
               )}
-              <Link to="/contact">
-                <button
-                  className="text-white hidden md:block bg-Primary hover:bg-Hover focus:outline-none font-bold rounded-lg text-[16px] md:text-[14px] lg:text-[18px] px-4 py-2 md:px-3 md:py-1 lg:px-4 lg:py-2"
-                  type="button">
-                  Contact
-                </button>
-              </Link>
+              <button
+                type="button"
+                className="text-white bg-[#287BB7] hover:bg-[#287BB7] hover:text-[#ffffff] focus:ring-4 focus:outline-none font-bold rounded-lg lg:text-[18px] px-4 py-2 text-center"
+              >
+                <Link to="/contact"> Contact</Link>
+              </button>
             </div>
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               data-collapse-toggle="navbar-cta"
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm border rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-cta"
-              aria-expanded="false">
-              <img src={menu} alt="menu-icon" />
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
             </button>
           </div>
           {/* mobile view */}
           <div
             className={`md:hidden ${isMobileMenuOpen ? "block" : "hidden"
-              } w-[100%] bg-white shadow-box-shadow mt-2`}
+              } w-[100%] bg-white box-shadow mt-2`}
           >
-            <div className="items-center justify-between w-full md:flex md:w-auto"
-              id="navbar-cta">
-              <ul className="md:hidden flex flex-col text-sm p-4 md:p-0 mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-[#464F54] dark:border-gray-700">
+            <div
+              className="items-center justify-between w-full md:flex md:w-auto"
+              id="navbar-cta"
+            >
+              <ul className="md:hidden flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-[#464F54] dark:border-gray-700">
                 <li>
-                  <Link to="/" className="block py-2 px-3 md:p-0 text-[#464F54] focus:bg-Primary focus:text-white rounded  md:text-Primary md:dark:text-blue-500 active:text-white"
+                  <Link to="/" className="block py-2 px-3 md:p-0 text-[#464F54] focus:bg-[#287BB7] focus:text-white rounded md:bg-transparent md:text-[#287BB7] md:dark:text-blue-500 active:text-white"
                   > Home</Link>
+
                 </li>
                 <li>
-                  <Link to="/business-list" className="block py-2 px-3 md:p-0 text-[#464F54] rounded  md:hover:bg-transparent md:hover:text-Primary dark:text-white dark:hover:bg-gray-700 dark:hover:text-white focus:bg-Primary focus:text-white md:dark:hover:bg-transparent dark:border-gray-700 active:bg-Primary active:text-white"
+
+                  <Link to="/businessList" className="block py-2 px-3 md:p-0 text-[#464F54] rounded focus:text-white  md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 active:bg-[#287BB7] active:text-white"
                   > Bussiness List</Link>
                 </li>
-                {token && <li>
-                  <Link to="/user-reviews" className="block py-2 px-3 md:p-0 text-[#464F54] rounded focus:text-white md:hover:bg-transparent md:hover:text-Primary dark:text-white dark:hover:bg-gray-700 dark:hover:text-white focus:bg-Primary md:dark:hover:bg-transparent dark:border-gray-700 active:bg-Primary active:text-white"
-                  > My Reviews</Link>
-                </li>}
                 <li>
-                  <Link to="/contact" className="block py-2 px-3 md:p-0 text-[#464F54] rounded focus:text-white md:hover:bg-transparent md:hover:text-Primary dark:text-white dark:hover:bg-gray-700 dark:hover:text-white focus:bg-Primary md:dark:hover:bg-transparent dark:border-gray-700 active:bg-Primary active:text-white"
+
+                  <Link to="/contact" className="block py-2 px-3 md:p-0 text-[#464F54] rounded focus:text-white md:hover:bg-transparent md:hover:text-[#287BB7] dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 active:bg-[#287BB7] active:text-white"
                   > Contact</Link>
-                </li>
-                {token && <li>
-                  <Link className="block py-2 px-3 md:p-0 text-[#464F54] rounded focus:text-white md:hover:bg-transparent md:hover:text-Primary dark:text-white dark:hover:bg-gray-700 dark:hover:text-white focus:bg-Primary md:dark:hover:bg-transparent dark:border-gray-700 active:bg-Primary active:text-white"
-                    onClick={() => handleLogout()}
-                  > Logout</Link>
-                </li>}
-                <li>
-                  <div className="relative">
-                    <button
-                      className=" flex gap-2 items-center py-2 px-3 md:p-0 text-[#464F54] font-medium text-sm lg:text-[18px] rounded  md:hover:bg-transparent md:hover:text-Primary"
-                      onClick={() => setIsCatOpen(!isCatOpen)}>
-                      Categories
-                      <img src={arrow} alt="arrow-icon" className={`w-3 ${isCatOpen ? "rotate-180" : "rotate-0"}`} />
-                    </button>
-                    {isCatOpen && (
-                      <div
-                      >
-                        <div
-                          className="absolute left-0 w-56 bg-white rounded-md shadow-box-shadow"
-                          onMouseEnter={() => setIsCatOpen(true)}
-                          onMouseLeave={() => setIsCatOpen(false)}>
-                          {(category?.map((item) => {
-                            return (
-                              <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:cursor-pointer md:hover:text-Primary"
-                                key={item?.id}
-                                to={`/business-list?category=${item?.name}`}
-                                onClick={() => window.scrollTo(0, 0)}>{capitalizeWords(item?.name)}<br /></Link>
-                            );
-                          })
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
                 </li>
               </ul>
             </div>
